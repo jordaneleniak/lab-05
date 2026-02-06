@@ -95,6 +95,19 @@ public class MainActivity extends AppCompatActivity implements CityDialogFragmen
     }
 
     @Override
+    public void deleteCity(City city){
+        db.collection("Cities").document(city.getName())
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("Firestore", "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(e -> Log.w("Firestore", "Error deleting document", e));
+    }
+
+    @Override
     public void addCity(City city){
         cityArrayList.add(city);
         cityArrayAdapter.notifyDataSetChanged();
